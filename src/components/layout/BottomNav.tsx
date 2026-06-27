@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 const NAV_ITEMS = [
   { to: '/', label: 'Home', icon: '🏠' },
   { to: '/collection', label: 'Collection', icon: '💎' },
+  { to: '/ideas', label: 'Ideas', icon: '💡' },
 ];
 
 export function BottomNav() {

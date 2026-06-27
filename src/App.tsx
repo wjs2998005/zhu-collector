@@ -6,6 +6,7 @@ import { AppShell } from '@/components/layout/AppShell';
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const StampDetailPage = lazy(() => import('@/pages/StampDetailPage'));
 const CollectionPage = lazy(() => import('@/pages/CollectionPage'));
+const IdeasPage = lazy(() => import('@/pages/IdeasPage'));
 
 function PageLoader() {
   return (
@@ -23,6 +24,7 @@ export function App({ seedPromise }: { seedPromise: Promise<Error | void> }) {
           <Route path="/" element={<HomePage seedPromise={seedPromise} />} />
           <Route path="/stamp/:id" element={<StampDetailPage />} />
           <Route path="/collection" element={<CollectionPage />} />
+          <Route path="/ideas" element={<IdeasPage />} />
         </Route>
       </Routes>
     </Suspense>
