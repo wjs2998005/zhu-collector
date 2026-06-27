@@ -8,8 +8,7 @@ export function TopBar() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {/* Pig emoji logo */}
-          <span className="text-2xl" role="img" aria-label="Zhu">🐷</span>
-          <h1 className="text-lg font-bold text-zhu-text">Zhu Collector</h1>
+          <h1 className="text-lg font-bold text-zhu-text">🐷 Stamp Book</h1>
         </div>
 
         {/* Stats badge */}

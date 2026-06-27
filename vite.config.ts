@@ -12,8 +12,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: 'Zhu Collector',
-        short_name: 'ZhuCollector',
+        name: '🐷 Stamp Book',
+        short_name: '🐷 Stamps',
         description: 'Collect and unlock adorable pig stamps',
         theme_color: '#FFB6C1',
         background_color: '#FFF5F5',
