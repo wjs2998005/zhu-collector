@@ -29,6 +29,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest}'],
+        // seed-images is ~78MB and only needed once (then lives in IndexedDB) — don't precache it
+        globIgnores: ['**/seed-images*.js'],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         runtimeCaching: [
           {
             urlPattern: /^https?:\/\/.*\/.*\.(js|css|html)$/,
