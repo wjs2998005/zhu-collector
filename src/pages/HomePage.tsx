@@ -1,11 +1,35 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAllStamps, useStats } from '@/stores/useStamps';
 import { StampCard } from '@/components/ui/StampCard';
 
-export default function HomePage() {
+export default function HomePage({ seedPromise }: { seedPromise: Promise<Error | void> }) {
   const navigate = useNavigate();
   const stamps = useAllStamps();
   const stats = useStats();
+  const [seedError, setSeedError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    seedPromise.then((result) => {
+      if (result instanceof Error) setSeedError(result);
+    });
+  }, [seedPromise]);
+
+  if (seedError) {
+    return (
+      <div className="flex flex-col items-center justify-center h-60 px-4 gap-3">
+        <span className="text-4xl">⚠️</span>
+        <p className="text-zhu-muted text-sm text-center font-medium">Failed to load stamps</p>
+        <p className="text-zhu-muted text-xs text-center">{seedError.message}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="tap-target px-4 py-2 bg-zhu-accent text-white text-sm font-semibold rounded-full"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   if (!stamps) {
     return (

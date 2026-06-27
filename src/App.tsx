@@ -16,12 +16,12 @@ function PageLoader() {
   );
 }
 
-export function App() {
+export function App({ seedPromise }: { seedPromise: Promise<Error | void> }) {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route element={<AppShell />}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage seedPromise={seedPromise} />} />
           <Route path="/stamp/:id" element={<StampDetailPage />} />
           <Route path="/collection" element={<CollectionPage />} />
           <Route path="/generate" element={<GeneratePage />} />

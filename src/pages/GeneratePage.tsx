@@ -60,7 +60,8 @@ export default function GeneratePage() {
   const handleDismiss = async (stamp: Stamp) => {
     if (!stamp.id) return;
     await db.stamps.delete(stamp.id);
-    setPreviewStamp(null);
+    // Clear preview if it's the same stamp, so Add to Collection can't fire on a deleted record
+    setPreviewStamp((prev) => (prev?.id === stamp.id ? null : prev));
   };
 
   const hasToken = Boolean(import.meta.env.VITE_OPENROUTER_API_KEY);

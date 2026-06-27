@@ -50,11 +50,11 @@ export async function generateZhuStamp(description: string): Promise<string> {
     throw new Error('Missing VITE_OPENROUTER_API_KEY environment variable');
   }
 
-  const userPrompt = `Create a round seal illustration of a kawaii pig character.
+  const userPrompt = `Create a kawaii pig character sticker illustration.
 
 ${description}
 
-Follow ALL the design rules: circular seal format, light pink pig, flat vector style, kawaii proportions.`;
+Follow ALL the design rules: borderless sticker, light pink pig (#FFE4E1), flat vector style, kawaii proportions, plain white background, NO borders or frames of any kind.`;
 
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',

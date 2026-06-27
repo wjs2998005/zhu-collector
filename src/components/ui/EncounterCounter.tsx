@@ -6,14 +6,18 @@ interface EncounterCounterProps {
 }
 
 export function EncounterCounter({ stampId, count }: EncounterCounterProps) {
-  const decrement = () => {
-    if (count > 0) {
-      db.stamps.update(stampId, { encounterCount: count - 1 });
+  const decrement = async () => {
+    const stamp = await db.stamps.get(stampId);
+    if (!stamp) return;
+    if (stamp.encounterCount > 0) {
+      db.stamps.update(stampId, { encounterCount: stamp.encounterCount - 1 });
     }
   };
 
-  const increment = () => {
-    db.stamps.update(stampId, { encounterCount: count + 1 });
+  const increment = async () => {
+    const stamp = await db.stamps.get(stampId);
+    if (!stamp) return;
+    db.stamps.update(stampId, { encounterCount: stamp.encounterCount + 1 });
   };
 
   return (

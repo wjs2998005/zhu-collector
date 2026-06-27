@@ -6,12 +6,15 @@ import { seedDatabase } from './db/seed';
 import './index.css';
 
 // Initialize database with seed data on first launch
-seedDatabase().catch(console.error);
+const seedPromise = seedDatabase().catch((err) => {
+  console.error('Seed failed:', err);
+  return err as Error;
+});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <App seedPromise={seedPromise} />
     </BrowserRouter>
   </StrictMode>
 );

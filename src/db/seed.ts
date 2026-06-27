@@ -1,5 +1,4 @@
 import type { SvgStampConfig } from './database';
-import SEED_IMAGES from './seed-images.json';
 
 /* ---------- 100 Curated Real-Life Zhu Stamps ---------- */
 
@@ -163,11 +162,7 @@ export async function seedDatabase(): Promise<void> {
     const count = await db.stamps.count();
     if (count > 0 && currentFlag === 'true') return;
 
-    // Clear stale data if exists
-    if (count > 0) {
-      await db.stamps.clear();
-    }
-
+    const { default: SEED_IMAGES } = await import('./seed-images.json');
     const stampRows = (SEED_IMAGES as { name: string; description: string; imageData: string }[])
       .filter((img) => img.imageData)
       .map((img) => ({
@@ -181,7 +176,10 @@ export async function seedDatabase(): Promise<void> {
         createdAt: new Date(),
       }));
 
-    await db.stamps.bulkAdd(stampRows);
+    await db.transaction('rw', db.stamps, async () => {
+      await db.stamps.clear();
+      await db.stamps.bulkAdd(stampRows);
+    });
     localStorage.setItem(SEED_FLAG, 'true');
     console.log(`Seeded ${stampRows.length} Zhu stamps`);
   } catch (err) {

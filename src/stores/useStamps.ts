@@ -18,7 +18,6 @@ export function useUnlockedStamps(sortBy: string = 'unlockedAt'): Stamp[] | unde
   return useLiveQuery(async () => {
     const all = await db.stamps.toArray();
     const unlocked = all.filter((s) => s.isBuiltIn === true && s.unlockedAt !== null);
-
     switch (sortBy) {
       case 'name':
         return unlocked.sort((a, b) => a.name.localeCompare(b.name));
@@ -32,7 +31,7 @@ export function useUnlockedStamps(sortBy: string = 'unlockedAt'): Stamp[] | unde
           return db_ - da;
         });
     }
-  });
+  }, [sortBy]);
 }
 
 /** Stats only count stamps added to collection */

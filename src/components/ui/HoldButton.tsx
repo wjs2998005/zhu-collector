@@ -23,6 +23,9 @@ export function HoldButton({
   const timerRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
   const completedRef = useRef(false);
+  // Always call the latest onComplete without making it a startHold dep
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
@@ -33,6 +36,8 @@ export function HoldButton({
 
   const startHold = useCallback(() => {
     if (disabled) return;
+    // Clear any existing interval first (prevents dual-fire from touchstart+mousedown on mobile)
+    clearTimer();
     completedRef.current = false;
     setIsHolding(true);
     startTimeRef.current = Date.now();
@@ -45,10 +50,10 @@ export function HoldButton({
         clearTimer();
         setIsHolding(false);
         setProgress(0);
-        onComplete();
+        onCompleteRef.current();
       }
     }, 16);
-  }, [duration, onComplete, disabled, clearTimer]);
+  }, [duration, disabled, clearTimer]);
 
   const endHold = useCallback(() => {
     clearTimer();
