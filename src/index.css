@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-zhu-pink: #FFB6C1;
+  --color-zhu-pink-dark: #FF8FAB;
+  --color-zhu-bg: #FFF5F5;
+  --color-zhu-card: #FFFFFF;
+  --color-zhu-accent: #FF69B4;
+  --color-zhu-text: #4A4A4A;
+  --color-zhu-locked: #D3D3D3;
+  --color-zhu-muted: #9CA3AF;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* Safe area utility classes */
+.pt-safe {
+  padding-top: max(env(safe-area-inset-top, 0px), 16px);
+}
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
+}
+
+/* Prevent overscroll bounce (native feel) */
+html, body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Minimum tap target for iOS */
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Full-height app container */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #FFF5F5;
+  color: #4A4A4A;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
