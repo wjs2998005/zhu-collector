@@ -48,10 +48,3 @@ export function useStats() {
   });
 }
 
-/** Generated stamps not yet added to collection */
-export function useAIGeneratedStamps(): Stamp[] | undefined {
-  return useLiveQuery(async () => {
-    const all = await db.stamps.orderBy('createdAt').reverse().toArray();
-    return all.filter((s) => s.isBuiltIn === false);
-  });
-}
