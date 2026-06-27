@@ -64,8 +64,6 @@ export default function GeneratePage() {
     setPreviewStamp((prev) => (prev?.id === stamp.id ? null : prev));
   };
 
-  const hasToken = Boolean(import.meta.env.VITE_OPENROUTER_API_KEY);
-
   const pendingStamps = aiStamps ?? [];
 
   return (
@@ -76,59 +74,45 @@ export default function GeneratePage() {
           <span>✨</span> Generate New Zhu
         </h2>
 
-        {!hasToken ? (
-          <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200 text-sm text-yellow-700">
-            <p className="font-medium mb-1">API key required</p>
-            <p className="text-xs">
-              Add <code className="bg-yellow-100 px-1 rounded">VITE_OPENROUTER_API_KEY</code> to your{' '}
-              <code className="bg-yellow-100 px-1 rounded">.env</code> file to enable AI generation.
-              Get a key at{' '}
-              <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" className="underline">openrouter.ai/keys</a>.
-            </p>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Describe your Zhu... e.g., 'a chef pig wearing a tall white hat, holding a wooden spoon'"
+          className="w-full h-20 p-3 text-sm border border-gray-200 rounded-lg resize-none
+            focus:outline-none focus:border-zhu-accent focus:ring-1 focus:ring-zhu-accent
+            placeholder:text-gray-300"
+          disabled={isGenerating}
+        />
+
+        {error && (
+          <div className="mt-2 p-2 bg-red-50 rounded-lg border border-red-200 text-xs text-red-600">
+            {error}
           </div>
-        ) : (
-          <>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Describe your Zhu... e.g., 'a chef pig wearing a tall white hat, holding a wooden spoon'"
-              className="w-full h-20 p-3 text-sm border border-gray-200 rounded-lg resize-none
-                focus:outline-none focus:border-zhu-accent focus:ring-1 focus:ring-zhu-accent
-                placeholder:text-gray-300"
-              disabled={isGenerating}
-            />
-
-            {error && (
-              <div className="mt-2 p-2 bg-red-50 rounded-lg border border-red-200 text-xs text-red-600">
-                {error}
-              </div>
-            )}
-
-            <div className="flex items-center justify-between mt-3">
-              <span className="text-xs text-zhu-muted">
-                {description.length > 0
-                  ? `${description.length} characters`
-                  : 'Enter a description'}
-              </span>
-
-              {isGenerating ? (
-                <div className="flex items-center gap-2 text-sm text-zhu-accent">
-                  <div className="w-5 h-5 border-2 border-zhu-accent border-t-transparent rounded-full animate-spin" />
-                  Generating...
-                </div>
-              ) : (
-                <HoldButton
-                  onComplete={handleGenerate}
-                  disabled={!description.trim() || isGenerating}
-                  duration={2000}
-                  label="Generate"
-                  size={70}
-                  color="#8B5CF6"
-                />
-              )}
-            </div>
-          </>
         )}
+
+        <div className="flex items-center justify-between mt-3">
+          <span className="text-xs text-zhu-muted">
+            {description.length > 0
+              ? `${description.length} characters`
+              : 'Enter a description'}
+          </span>
+
+          {isGenerating ? (
+            <div className="flex items-center gap-2 text-sm text-zhu-accent">
+              <div className="w-5 h-5 border-2 border-zhu-accent border-t-transparent rounded-full animate-spin" />
+              Generating...
+            </div>
+          ) : (
+            <HoldButton
+              onComplete={handleGenerate}
+              disabled={!description.trim() || isGenerating}
+              duration={2000}
+              label="Generate"
+              size={70}
+              color="#8B5CF6"
+            />
+          )}
+        </div>
       </div>
 
       {/* Preview of just-generated stamp */}
