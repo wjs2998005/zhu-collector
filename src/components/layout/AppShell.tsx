@@ -4,9 +4,10 @@ import { BottomNav } from './BottomNav';
 
 export function AppShell() {
   return (
-    <div className="h-full min-h-dvh flex flex-col bg-zhu-bg">
+    <div className="flex flex-col bg-zhu-bg min-h-dvh">
       <TopBar />
-      <main className="flex-1 overflow-y-auto">
+      {/* Extra bottom padding so content isn't hidden behind the fixed nav */}
+      <main className="flex-1 overflow-y-auto pb-[calc(3.5rem+env(safe-area-inset-bottom,20px))]">
         <Outlet />
       </main>
       <BottomNav />

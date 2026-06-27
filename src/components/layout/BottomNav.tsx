@@ -8,7 +8,10 @@ const NAV_ITEMS = [
 
 export function BottomNav() {
   return (
-    <nav className="pb-safe bg-white/90 backdrop-blur-sm border-t border-gray-100">
+    <nav
+      className="fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-sm border-t border-gray-100"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+    >
       <div className="flex items-center justify-around h-14">
         {NAV_ITEMS.map((item) => (
           <NavLink
